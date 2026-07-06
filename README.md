@@ -1,6 +1,6 @@
 # Quant Desk — AI Quant Trading Platform
 
-A personal, full-stack algorithmic trading platform for Indian stocks/ETFs, built on
+A personal, full stack algorithmic trading platform for Indian stocks/ETFs, built on
 **Zerodha Kite Connect**. It covers the whole loop: pull market data → backtest a
 strategy → paper/live trade it → watch it on a live dashboard.
 
@@ -22,20 +22,20 @@ Data (Kite Connect) → Storage (SQLite/Postgres) → Backtest Engine → Strate
 - **Data layer**: wraps Zerodha's Kite Connect API for historical candles, live LTP/quotes,
   and order placement; local SQLite (or Postgres) storage for OHLCV, trades, positions,
   and equity history.
-- **Backtest engine**: no-lookahead-bias, bar-by-bar simulation with commission + slippage,
-  percent-of-equity position sizing, and a full metrics suite (CAGR, Sharpe, Sortino, max
+- **Backtest engine**: no lookahead bias, bar by bar simulation with commission + slippage,
+  percent of equity position sizing, and a full metrics suite (CAGR, Sharpe, Sortino, max
   drawdown, win rate, profit factor).
-- **Strategies included**: SMA Crossover, RSI Mean Reversion, Momentum — plus a clean
-  `BaseStrategy` interface so you can drop in your own (rule-based or ML-based) without
+- **Strategies included**: SMA Crossover, RSI Mean Reversion, Momentum plus a clean
+  `BaseStrategy` interface so you can drop in your own (rule based or ML based) without
   touching the engine.
-- **Risk management**: position sizing caps, portfolio exposure caps, automatic stop-loss /
-  take-profit computation and monitoring.
+- **Risk management**: position sizing caps, portfolio exposure caps, automatic stop loss /
+  take profit computation and monitoring.
 - **Execution**: one `OrderManager` interface for both paper (simulated fills) and live
-  (real Zerodha orders) trading — same strategy code runs in both modes.
-- **Dashboard**: FastAPI backend + a dependency-free HTML/CSS/JS frontend showing live
-  equity curve, open positions, trade log, and an on-demand backtest runner.
+  (real Zerodha orders) trading same strategy code runs in both modes.
+- **Dashboard**: FastAPI backend + a dependency free HTML/CSS/JS frontend showing live
+  equity curve, open positions, trade log, and an on demand backtest runner.
 - **Tests**: 51 pytest tests covering the engine, strategies, risk manager, order manager,
-  data store, and metrics — including an explicit no-lookahead-bias regression test.
+  data store, and metrics — including an explicit no lookahead bias regression test.
 - **Works without a broker subscription**: `scripts/generate_sample_data.py` creates
   realistic synthetic OHLCV data so you can backtest and demo the dashboard immediately,
   before paying for API access.
@@ -164,7 +164,7 @@ class MyStrategy(BaseStrategy):
         ...
 ```
 
-That's it — the same class works in `BacktestEngine`, `PaperTrader`, and live trading,
+That's it the same class works in `BacktestEngine`, `PaperTrader`, and live trading,
 because none of them care how the signal was produced (rules, indicators, or a trained
 ML model — a scikit-learn/XGBoost `.predict()` call fits the same interface).
 
@@ -195,7 +195,7 @@ ML model — a scikit-learn/XGBoost `.predict()` call fits the same interface).
 - Multi-strategy portfolio allocation and correlation-aware position sizing.
 - WebSocket ticks (Kite's streaming API) instead of polling LTP, for lower-latency paper/live loops.
 - Options/derivatives support (Kite Connect covers NFO too).
-- Walk-forward and Monte-Carlo backtesting for more robust strategy validation.
+- Walk forward and Monte Carlo backtesting for more robust strategy validation.
 - Dockerize the dashboard + a cron/systemd unit for the trading loop.
 
 ---
