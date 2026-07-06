@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Quant Desk — AI Trading Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="tape" id="tape"><div class="tape-track" id="tapeTrack">Loading market tape…</div></div>
+
+<header class="hdr">
+  <div class="hdr-left">
+    <div class="mark">QD</div>
+    <div class="hdr-title">
+      <h1>Quant Desk</h1>
+      <span class="sub">Personal AI Trading Platform · NSE</span>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <div class="mode-badge" id="modeBadge">MODE: —</div>
+    <div class="clock" id="clock">--:--:--</div>
+  </div>
+</header>
+
+<main class="grid">
+
+  <section class="panel span-4 stat-panel">
+    <div class="stat">
+      <span class="stat-label">Equity</span>
+      <span class="stat-value" id="statEquity">₹0</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Cash</span>
+      <span class="stat-value" id="statCash">₹0</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Open Positions</span>
+      <span class="stat-value" id="statPositions">0</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Total Trades</span>
+      <span class="stat-value" id="statTrades">0</span>
+    </div>
+  </section>
+
+  <section class="panel span-8 chart-panel">
+    <div class="panel-head">
+      <h2>Equity Curve</h2>
+      <div class="seg" id="modeSeg">
+        <button class="seg-btn active" data-mode="paper">Paper</button>
+        <button class="seg-btn" data-mode="live">Live</button>
+        <button class="seg-btn" data-mode="backtest">Backtest</button>
+      </div>
+    </div>
+    <canvas id="equityChart" height="90"></canvas>
+  </section>
+
+  <section class="panel span-5">
+    <div class="panel-head"><h2>Open Positions</h2></div>
+    <table class="data-table" id="positionsTable">
+      <thead><tr><th>Symbol</th><th>Qty</th><th>Avg Price</th><th>SL</th><th>TP</th></tr></thead>
+      <tbody><tr><td colspan="5" class="empty">No open positions</td></tr></tbody>
+    </table>
+  </section>
+
+  <section class="panel span-7">
+    <div class="panel-head"><h2>Trade Log</h2></div>
+    <table class="data-table" id="tradesTable">
+      <thead><tr><th>Time</th><th>Symbol</th><th>Side</th><th>Qty</th><th>Price</th><th>PnL</th><th>Strategy</th></tr></thead>
+      <tbody><tr><td colspan="7" class="empty">No trades yet</td></tr></tbody>
+    </table>
+  </section>
+
+  <section class="panel span-12 backtest-panel">
+    <div class="panel-head">
+      <h2>Run a Backtest</h2>
+      <span class="hint">Signature move: test any strategy against loaded history, instantly.</span>
+    </div>
+    <div class="backtest-form">
+      <label>Symbol
+        <select id="btSymbol"></select>
+      </label>
+      <label>Strategy
+        <select id="btStrategy">
+          <option value="sma_crossover">SMA Crossover</option>
+          <option value="rsi_mean_reversion">RSI Mean Reversion</option>
+          <option value="momentum">Momentum</option>
+        </select>
+      </label>
+      <label>Starting Capital
+        <input type="number" id="btCapital" value="100000" step="1000" />
+      </label>
+      <label>Position Size %
+        <input type="number" id="btPosSize" value="10" step="1" min="1" max="100" />
+      </label>
+      <button id="btRun" class="run-btn">Run Backtest</button>
+    </div>
+    <div class="bt-results" id="btResults"></div>
+  </section>
+
+</main>
+
+<footer class="ftr">
+  Quant Desk · Built on Zerodha Kite Connect · Paper &amp; Live execution · For personal use — not investment advice.
+</footer>
+
+<script src="chart.umd.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

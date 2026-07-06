@@ -1,0 +1,203 @@
+/* ============================================================
+   Quant Desk — design tokens
+   Palette:  ink #0B0F14 · surface #121821 · line #232C38
+             text #E7ECF2 · muted #7C8798 · amber #E8A33D
+             gain #3ECF8E · loss #F0556B
+   Type:     Space Grotesk (display) / IBM Plex Mono (data, everywhere else)
+   Signature: scrolling ticker tape header, tabular-number data tables
+   ============================================================ */
+
+:root {
+  --ink: #0B0F14;
+  --surface: #121821;
+  --surface-2: #161D27;
+  --line: #232C38;
+  --text: #E7ECF2;
+  --muted: #7C8798;
+  --amber: #E8A33D;
+  --gain: #3ECF8E;
+  --loss: #F0556B;
+  --radius: 3px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--text);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Ticker tape (signature element) ---------- */
+.tape {
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+.tape-track {
+  display: inline-block;
+  padding-left: 100%;
+  color: var(--amber);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  animation: scroll-tape 40s linear infinite;
+}
+@keyframes scroll-tape {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tape-track { animation: none; padding-left: 12px; }
+}
+
+/* ---------- Header ---------- */
+.hdr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 28px;
+  border-bottom: 1px solid var(--line);
+}
+.hdr-left { display: flex; align-items: center; gap: 14px; }
+.mark {
+  width: 38px; height: 38px;
+  border: 1px solid var(--amber);
+  border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  color: var(--amber);
+}
+.hdr-title h1 { font-size: 19px; font-weight: 600; }
+.hdr-title .sub { font-size: 11px; color: var(--muted); letter-spacing: 0.03em; }
+.hdr-right { display: flex; align-items: center; gap: 16px; }
+.mode-badge {
+  font-size: 11px;
+  border: 1px solid var(--line);
+  padding: 5px 10px;
+  border-radius: var(--radius);
+  color: var(--amber);
+  letter-spacing: 0.05em;
+}
+.clock { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* ---------- Grid / panels ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+  padding: 20px 28px 40px;
+}
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+.span-4 { grid-column: span 4; }
+.span-5 { grid-column: span 5; }
+.span-7 { grid-column: span 7; }
+.span-8 { grid-column: span 8; }
+.span-12 { grid-column: span 12; }
+
+@media (max-width: 900px) {
+  .span-4, .span-5, .span-7, .span-8, .span-12 { grid-column: span 12; }
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.panel-head h2 { font-size: 14px; font-weight: 600; color: var(--text); text-transform: uppercase; letter-spacing: 0.06em; }
+.hint { font-size: 11px; color: var(--muted); }
+
+/* ---------- Stat panel ---------- */
+.stat-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+}
+.stat { display: flex; flex-direction: column; gap: 3px; }
+.stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.stat-value { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* ---------- Segmented control ---------- */
+.seg { display: flex; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.seg-btn {
+  background: transparent; border: none; color: var(--muted);
+  font-family: inherit; font-size: 11px; padding: 5px 10px; cursor: pointer;
+  border-right: 1px solid var(--line);
+}
+.seg-btn:last-child { border-right: none; }
+.seg-btn.active { background: var(--surface-2); color: var(--amber); }
+
+/* ---------- Tables ---------- */
+.data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.data-table th {
+  text-align: left; color: var(--muted); font-weight: 500;
+  text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em;
+  padding: 6px 8px; border-bottom: 1px solid var(--line);
+}
+.data-table td {
+  padding: 7px 8px; border-bottom: 1px solid var(--surface-2);
+  font-variant-numeric: tabular-nums;
+}
+.data-table .empty { color: var(--muted); text-align: center; padding: 18px 8px; }
+.pnl-pos { color: var(--gain); }
+.pnl-neg { color: var(--loss); }
+.side-buy { color: var(--gain); }
+.side-sell { color: var(--loss); }
+
+/* ---------- Backtest panel ---------- */
+.backtest-form {
+  display: flex; gap: 16px; flex-wrap: wrap; align-items: end;
+  padding-bottom: 14px; border-bottom: 1px solid var(--line); margin-bottom: 14px;
+}
+.backtest-form label {
+  display: flex; flex-direction: column; gap: 5px;
+  font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em;
+}
+.backtest-form select, .backtest-form input {
+  background: var(--surface-2); border: 1px solid var(--line); color: var(--text);
+  font-family: inherit; font-size: 13px; padding: 7px 9px; border-radius: var(--radius);
+  min-width: 130px;
+}
+.run-btn {
+  background: var(--amber); border: none; color: #1a1204;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 13px;
+  padding: 9px 18px; border-radius: var(--radius); cursor: pointer;
+  height: fit-content;
+}
+.run-btn:hover { filter: brightness(1.08); }
+.run-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.bt-metrics { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-bottom: 16px; }
+.bt-metric { display: flex; flex-direction: column; gap: 3px; }
+.bt-metric-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.bt-metric-value { font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
+@media (max-width: 900px) { .bt-metrics { grid-template-columns: repeat(2, 1fr); } }
+
+.bt-empty { color: var(--muted); font-size: 12px; padding: 20px 0; text-align: center; }
+
+/* ---------- Footer ---------- */
+.ftr {
+  text-align: center; padding: 20px; font-size: 11px; color: var(--muted);
+  border-top: 1px solid var(--line);
+}
