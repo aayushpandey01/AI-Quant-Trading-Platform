@@ -1,4 +1,4 @@
-# Quant Desk — AI Quant Trading Platform
+# AI Quant Trading Platform
 
 A personal, full stack algorithmic trading platform for Indian stocks/ETFs, built on
 **Zerodha Kite Connect**. It covers the whole loop: pull market data → backtest a
